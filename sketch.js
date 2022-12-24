@@ -38,7 +38,7 @@ function preload() {
     lifeBarImage = loadImage("assets/maze/lifeBar.png")
     level1end = loadImage("assets/wizard.png")
     level2popup1 = loadImage("assets/popuplevel2.gif")
-
+doorimage=loadImage("assets/door.png")
 
     // find level bgs
     find1img = loadImage("assets/level2Assets/background/find1bg.jpg")
@@ -50,15 +50,16 @@ function preload() {
 
 
     // load sounds
-    backgroundMusic=loadSound("assets/level2Assets/sounds/backgroundmusic.mp3")
+    backgroundMusic = loadSound("assets/level2Assets/sounds/backgroundmusic.mp3")
+    // backgroundMusic.play()
 
-    buttonSounds=loadSound("assets/level2Assets/sounds/button.wav")
+    buttonSounds = loadSound("assets/level2Assets/sounds/button.wav")
     buttonSounds.setVolume(0.1)
 
-    levelupsound=loadSound("assets/level2Assets/sounds/got.mp3")
+    levelupsound = loadSound("assets/level2Assets/sounds/got.mp3")
     levelupsound.setVolume(0.1)
 
-    gotitem=loadSound("assets/level2Assets/sounds/levelupshort.mp3")
+    gotitem = loadSound("assets/level2Assets/sounds/levelupshort.mp3")
     gotitem.setVolume(0.5)
 
 }
@@ -278,9 +279,7 @@ function setup() {
     wall40 = createSprite(150 * 2, 187 * 2, 45 * 2, 18 * 2)
     wall41 = createSprite(176 * 2, 187 * 2, 6 * 2, 18 * 2)
 
-    // maze end sprite
-    endsprite = createSprite(187 * 2.05, 175 * 2.25, 18 * 2, 6 * 2)
-
+ 
     // maze end sprite
     wizard = createSprite(width - 200, height - 200)
     wizard.addImage(level1end)
@@ -611,6 +610,12 @@ function setup() {
     cat.size(300, 300)
     cat.hide()
 
+   // maze end sprite
+   endsprite = createSprite(187 * 2.05, 175 * 2.25, 18 * 2, 6 * 2)
+   endsprite.addImage(doorimage)
+   endsprite.scale=0.075
+   // endsprite.debug=true
+   endsprite.visible=false
 
 
 }
@@ -619,7 +624,7 @@ function setup() {
 
 function draw() {
 
-    if(!backgroundMusic.isPlaying()){
+    if (!backgroundMusic.isPlaying()) {
         backgroundMusic.play()
         backgroundMusic.setVolume(0.1)
     }
@@ -769,7 +774,7 @@ function draw() {
     }
 
     if (gameState === "level2Info") {
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -790,7 +795,7 @@ function draw() {
         // levelup.size(800,800)
 
         candlesfind.show()
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -808,7 +813,7 @@ function draw() {
         // levelup.position(width/9,1)
         // levelup.size(800,800)
         crystalsfind.show()
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -826,7 +831,7 @@ function draw() {
         // levelup.position(width/9,1)
         // levelup.size(800,800)
         potionsfind.show()
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -844,7 +849,7 @@ function draw() {
         // levelup.position(width/9,1)
         // levelup.size(800,800)
         levelup.show()
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -927,7 +932,7 @@ function mazeGameCode() {
 
 
     // make sprites visible
-
+endsprite.visible=true
     player1.visible = true
     lifeBarA.visible = true
     lifeBarB.visible = true
@@ -1253,8 +1258,9 @@ function mazeGameCode() {
     console.log(b1sprite.x)
 
 
-    if (wall2.isTouching(player1)) {
-
+    if (endsprite.isTouching(player1)) {
+        player.destroy()
+        endsprite.visible = false
         wizard.visible = true
         level1endpop.visible = true
         enterlevel2.show()
@@ -1562,7 +1568,7 @@ function level3() {
 
 
     if (candle1.mousePressed(() => {
-                gotitem.play()
+        gotitem.play()
         collect2 += 1
         console.log(collect1)
         candle1.hide()
@@ -1737,7 +1743,7 @@ function level6() {
     doorbutton.show()
 
     if (doorbutton.mousePressed(() => {
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
@@ -1755,7 +1761,7 @@ function level6() {
 function level7() {
 
     unlockbutton.mousePressed(() => {
-        if(!levelupsound.isPlaying()){
+        if (!levelupsound.isPlaying()) {
             levelupsound.play()
 
         }
