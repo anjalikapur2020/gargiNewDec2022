@@ -492,7 +492,7 @@ function setup() {
     potionsfind.size(width, height)
     potionsfind.hide()
 
-    levelup = createImg("/assets/popup.gif")
+    levelup = createImg("assets/popup.gif")
     levelup.position(0, 1)
     levelup.size(width, height)
     levelup.hide()
