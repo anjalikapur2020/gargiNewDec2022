@@ -50,17 +50,23 @@ doorimage=loadImage("assets/door.png")
 
 
     // load sounds
-    backgroundMusic = loadSound("assets/level2Assets/sounds/backgroundmusic.mp3")
+
+    // start music
+   introMusic = loadSound("assets/level2Assets/sounds/intro.mp3")
+   introMusic.setVolume(0.1)
+
+
+    backgroundMusic = loadSound("assets/level2Assets/sounds/footsteps.mp3")
     // backgroundMusic.play()
 
     buttonSounds = loadSound("assets/level2Assets/sounds/button.wav")
     buttonSounds.setVolume(0.1)
 
-    levelupsound = loadSound("assets/level2Assets/sounds/got.mp3")
+    levelupsound = loadSound("assets/level2Assets/sounds/smb_powerup.wav")
     levelupsound.setVolume(0.1)
 
     gotitem = loadSound("assets/level2Assets/sounds/levelupshort.mp3")
-    gotitem.setVolume(0.5)
+    gotitem.setVolume(0.7)
 
 }
 
@@ -487,8 +493,8 @@ function setup() {
     potionsfind.hide()
 
     levelup = createImg("/assets/popup.gif")
-    levelup.position(width / 4, 1)
-    levelup.size(800, 800)
+    levelup.position(0, 1)
+    levelup.size(width, height)
     levelup.hide()
 
 
@@ -606,7 +612,7 @@ function setup() {
     cat = createImg("assets/cat.gif")
     // catx=Math.round(random(200,width-250))
     // caty=Math.round(random(200,height-250))
-    cat.position(width - 300, height - 300)
+    cat.position(width - 300, height/4)
     cat.size(300, 300)
     cat.hide()
 
@@ -624,9 +630,9 @@ function setup() {
 
 function draw() {
 
-    if (!backgroundMusic.isPlaying()) {
-        backgroundMusic.play()
-        backgroundMusic.setVolume(0.1)
+    if (!introMusic.isPlaying()) {
+        introMusic.play()
+        introMusic.setVolume(0.2)
     }
 
     if (gameState == "wait") {
@@ -757,6 +763,13 @@ function draw() {
     // MAZE GAME STARTS HERE
 
     if (gameState === "mazegame") {
+        introMusic.stop()
+        if (!backgroundMusic.isPlaying()) {
+            backgroundMusic.play()
+            backgroundMusic.setVolume(0.4)
+        }
+
+
         mazeGameCode()
         // background("yellow")
         play.hide()
@@ -776,7 +789,7 @@ function draw() {
     if (gameState === "level2Info") {
         if (!levelupsound.isPlaying()) {
             levelupsound.play()
-
+backgroundMusic.stop()
         }
 
 
@@ -785,9 +798,8 @@ function draw() {
     }
 
 
-
     drawSprites()
-
+    
 
     if (gameState === "booklevelcleared" && collect1 == 2) {
         // levelup=createImg("assets/level2Assets/level-up-unscreen.gif")
